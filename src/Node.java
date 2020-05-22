@@ -1,19 +1,19 @@
-public class Node {
+public class Node<T extends Comparable<T>> {
     private Node next = null;
-    private String data = "";
+    private T data = null;
 
-    public Node(String data){
+    public Node(T data){
         this.data = data;
     }
 
-    public void setData(String data) {
+    public void setData(T data) {
         this.data = data;
     }
     public void setNext(Node next) {
         this.next = next;
     }
 
-    public String getData() {
+    public T getData() {
         return data;
     }
     public Node getNext() {

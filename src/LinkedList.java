@@ -1,5 +1,5 @@
-public class LinkedList {
-    private Node head = null;
+public class LinkedList <T extends Comparable<T>> {
+    private Node<T> head = null;
     private int extension = 0;
 
     public int getExtension() {
@@ -9,7 +9,9 @@ public class LinkedList {
     public boolean isEmpty(){
         return this.head == null;
     }
-    public void insertFirst(String data){
+
+
+    public void insertFirst(T data){
         Node node = new Node(data);
         if(isEmpty()){
             this.head = node;
@@ -22,7 +24,7 @@ public class LinkedList {
         }
     }
 
-    public void insertLast(String data){
+    public void insertLast(T data){
         Node node = new Node(data);
         if(isEmpty()){
             this.head = node;
@@ -37,7 +39,7 @@ public class LinkedList {
         }
     }
 
-    public void insertPosicion(int position, String data) {
+    public void insertPosition(int position, T data) {
         if(position > this.extension){
             System.out.println("Invalid position");
         } else if(position==1){
@@ -55,7 +57,7 @@ public class LinkedList {
         }
     }
 
-    public boolean isNode(String data){
+    public boolean isNode(T data){
         Node temp = this.head;
         int nodesLeft = this.extension;
         while(nodesLeft!=0){
@@ -70,22 +72,22 @@ public class LinkedList {
         return false;
     }
 
-    public int searchPosition(String data){
-        if(isNode(data)){
-            Node temp = this.head;
-            int position = 1;
-            while(temp.getData().equals(data)==false){
+    public int searchPosition(T data){
+        Node temp = this.head;
+        int position=1;
+        while(temp!=null){
+            if(temp.getData().equals(data)){
+                return position;
+            }
+            else{
                 temp=temp.getNext();
                 position++;
             }
-            return position;
         }
-        else{
-            return -1;
-        }
+        return -1;
     }
 
-    public void editNode(int position, String newData){
+    public void editNode(int position, T newData){
         if(position<=0 || position>this.extension){
             System.out.println("The node doesn't exists");
         }else{
@@ -99,7 +101,7 @@ public class LinkedList {
         }
     }
 
-    public void editNodebyData(String previousData, String newData){
+    public void editNodebyData(T previousData, T newData){
         editNode(searchPosition(previousData), newData);
     }
 
@@ -116,9 +118,9 @@ public class LinkedList {
         temp.setNext(null);
     }
 
-    public void deleteNodebyData(String data){
+    public void deleteNodebyData(T data){
         int position = searchPosition(data);
-        if(position<=0 || position>this.extension) {
+        if(position==-1) {
             System.out.println("Couldn't find the node");
         }else if(position==1) {
             deleteFirstnode();
